@@ -137,7 +137,8 @@ export class RawSqlResultsToEntityTransformer {
 
             // if user does not selected the whole entity or he used partial selection and does not select this particular column
             // then we don't add this column and its value into the entity
-            if (!this.expressionMap.selects.find(select => select.selection === alias.name || select.selection === alias.name + "." + column.propertyPath))
+            const selection = alias.name + "." + column.propertyPath;
+            if (!this.expressionMap.selects.find(select => select.selection === alias.name || select.selection === selection))
                 return;
 
             column.setEntityValue(entity, this.driver.prepareHydratedValue(value, column));
